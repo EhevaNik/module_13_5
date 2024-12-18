@@ -17,8 +17,7 @@ class UserState(StatesGroup):
 kb = ReplyKeyboardMarkup(resize_keyboard=True)
 button = KeyboardButton(text='Рассчитать')
 button2 = KeyboardButton(text='Информация')
-kb.add(button)
-kb.add(button2)
+kb.row(button, button2)
 
 @dp.message_handler(commands=['start'])
 async def start_message(message):
@@ -49,6 +48,9 @@ async def send_calories(message, state):
     await message.answer(f'Ваша норма калорий {result}' )
     await state.finish()
 
+@dp.message_handler()
+async def all_message(message):
+    await message.answer('Введите команду /start, чтобы начать общение.')
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
